@@ -12,9 +12,9 @@ class Forms extends React.Component{
           display_name : "",
           lon : "",
           lat : "",
-          error : "",
-          errFlag : false
-          
+          error : "sorry something went wrong!!",
+          errFlag : false,
+          mapFlag : false
         }
       }
     
@@ -26,21 +26,22 @@ class Forms extends React.Component{
         
         
 
-        try
+    try
     {
     let resResult = await axios.get(URL);
     console.log(resResult.data[0]);
     this.setState({
       display_name : resResult.data[0].display_name,
       lon : resResult.data[0].lon,
-      lat : resResult.data[0].lat
-      
+      lat : resResult.data[0].lat,
+      mapFlag : true
     })
     }
     catch {
         console.log('err');
       this.setState({
         errFlag : true,
+        
       })
     }
   }
@@ -50,13 +51,15 @@ class Forms extends React.Component{
         <div>
             <Form onSubmit ={this.getLocationData}>
                 <input type="text" name="city" placeholder="Enter a City name" />
-                <button type="submit">Explore</button>
+                <button type="submit">Explore!</button>
             </Form>
             </div>
 
             <h3>display_name:{this.state.display_name}</h3>
             <p>lon:{this.state.lon}</p>
             <p>lat:{this.state.lat}</p>
+
+            {this.state.mapFlag && <img src={`https://maps.locationiq.com/v3/staticmap?key=${TOKEN}&center=${this.state.lon},${this.state.lat}`}></img>}
 
             {this.state.errFlag && <h4>Error: {this.state.error}</h4>}
            
