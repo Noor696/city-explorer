@@ -59,7 +59,7 @@ class Forms extends React.Component{
             <p>lon:{this.state.lon}</p>
             <p>lat:{this.state.lat}</p>
 
-            {this.state.mapFlag && <img src={`https://maps.locationiq.com/v3/staticmap?key=${TOKEN}&center=${this.state.lon},${this.state.lat}`}></img>}
+            {this.state.mapFlag && <img src={`https://maps.locationiq.com/v3/staticmap?key=${TOKEN}&center=${this.state.lat},${this.state.lon}&zoom=${20}&size=610x300`} alt="map"></img>}
 
             {this.state.errFlag && <h4>Error: {this.state.error}</h4>}
            
