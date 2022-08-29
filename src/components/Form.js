@@ -24,22 +24,23 @@ class Forms extends React.Component{
         console.log(cityNameInput);
         const URL = `https://eu1.locationiq.com/v1/search?key=${TOKEN}&q=${cityNameInput}&format=json`
         
-        console.log(resResult.data[0]);
+        
 
         try
     {
     let resResult = await axios.get(URL);
+    console.log(resResult.data[0]);
     this.setState({
       display_name : resResult.data[0].display_name,
       lon : resResult.data[0].lon,
-      lat : resResult.data[0].lat,
+      lat : resResult.data[0].lat
       
     })
     }
     catch {
         console.log('err');
       this.setState({
-        errFlag : true
+        errFlag : true,
       })
     }
   }
@@ -57,7 +58,7 @@ class Forms extends React.Component{
             <p>lon:{this.state.lon}</p>
             <p>lat:{this.state.lat}</p>
 
-            <h4>Error: {this.state.error}</h4>
+            {this.state.errFlag && <h4>Error: {this.state.error}</h4>}
            
 
         
